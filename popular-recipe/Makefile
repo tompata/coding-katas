@@ -1,10 +1,10 @@
 test:
-	@./node_modules/.bin/mocha \
+	@mocha \
 		--reporter spec \
 		--ui tdd
 
 test-w:
-	@./node_modules/.bin/mocha \
+	@mocha \
 		--reporter spec \
 		--ui tdd \
 		--watch
