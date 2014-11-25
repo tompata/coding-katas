@@ -11,7 +11,7 @@ function parseInput(filename){
 
 function filtervotes(filename) {
 	var inputLines = parseInput(filename)
-	
+	return inputLines.map(function(element){return parseInt(element);});
 
 }
 
