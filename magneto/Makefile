@@ -4,7 +4,7 @@ test:
 		--ui tdd
 
 cov:
-	@./node_modules/.bin/mocha \
+	@mocha \
 		--reporter spec \
 		--ui tdd \
 		--require blanket \
