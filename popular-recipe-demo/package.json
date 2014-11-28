@@ -1,0 +1,20 @@
+{
+  "name": "test",
+  "description": "",
+  "author": "",
+  "dependencies": {
+    "blanket": "1.x.x",
+    "mocha": "2.x.x",
+    "chai": "1.10.x",
+    "sinon-chai": "2.6.x",
+    "cucumber": "0.4.x"
+  },
+  "devDependencies": {
+  },
+  "engine": "node >= 0.10.1",
+  "config": {
+    "blanket": {
+      "pattern": "src"
+    }
+  }
+}
