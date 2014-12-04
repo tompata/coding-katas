@@ -1,0 +1,18 @@
+{
+  "name": "test",
+  "description": "",
+  "author": "",
+  "dependencies": {
+    "blanket": "1.x.x",
+    "mocha": "2.x.x",
+    "sinon": "1.12.x"
+  },
+  "devDependencies": {
+  },
+  "engine": "node >= 0.10.1",
+  "config": {
+    "blanket": {
+      "pattern": "src"
+    }
+  }
+}
