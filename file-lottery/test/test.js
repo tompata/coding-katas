@@ -52,3 +52,20 @@ suite('fileLottery readFiles', function() {
   });
   
 });
+
+suite('fileLottery output', function() {
+ 
+  test ('print results in terminal', function() {
+    var path = (__dirname + "/../node_modules/mocha");
+    var f = new fileLottery(path);
+    f.shuffle();
+    console.log(f.next());
+    console.log(f.next());
+    console.log(f.next());
+    console.log(f.next());
+    console.log(f.next());
+    console.log(f.next());
+    console.log(f.next());
+  });
+  
+});
