@@ -9,15 +9,11 @@ var fileLottery = require('../src/fileLottery.js').fileLottery;
 var TEST_FILE_LIST = [ 'file1', 'file2', 'file3' ];
 
 suite('fileLottery', function() {
+
+  var mockReadFiles = sinon.stub(fileLottery, "readFiles");
+  mockReadFiles.withArgs("testdir").returns(TEST_FILE_LIST);
   var f = new fileLottery("testdir"); 
   
-  test ('It reads the files from a directory', function() {
-    var mockReadFiles = sinon.stub(f, "readFiles");
-    mockReadFiles.withArgs("testdir").returns(TEST_FILE_LIST);
-    assert.deepEqual( TEST_FILE_LIST,f.readFiles("testdir"));
-    f.readFiles.restore();
-  });
-
   test ('It returns a file from a directory', function() {
     assert.equal("file1",f.next());
   });
@@ -26,18 +22,15 @@ suite('fileLottery', function() {
     assert.equal("file2",f.next());
   });
 
-});
-
-suite('fileLottery randomly', function() {
- 
   test ('We shuffle the file list in the directory', function() {
-    var f = new fileLottery("testdir"); 
     var mockRandomGenerator = sinon.stub(fileLottery,"generateRandom");
     mockRandomGenerator.onFirstCall().returns(1);
     mockRandomGenerator.onSecondCall().returns(0);
     assert.deepEqual( ["file2", "file1"], f.shuffle() );
     fileLottery.generateRandom.restore();
   });
+  
+  fileLottery.readFiles.restore();
   
 });
 
@@ -54,8 +47,8 @@ suite('Random functions', function() {
 suite('fileLottery readFiles', function() {
  
   test ('read files from a given directory path', function() {
-    var f = new fileLottery(__dirname + "/../src");
-    assert.deepEqual( ["fileLottery.js"], f.readFiles() );
+    var path = (__dirname + "/../src");
+    assert.deepEqual( ["fileLottery.js"], fileLottery.readFiles(path) );
   });
   
 });

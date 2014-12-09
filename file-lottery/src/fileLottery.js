@@ -1,9 +1,7 @@
 
 var fileLottery = function( directoryPath ) {
-	this.directoryPath = directoryPath;
-	this.elements = [ "file1" , "file2"];
 	this.index = -1;
-	this.fs = require("fs");
+	this.elements = fileLottery.readFiles(directoryPath);
 }
 
 fileLottery.prototype = {
@@ -19,15 +17,16 @@ fileLottery.prototype = {
 		}
 		this.elements = shuffled;
 		return this.elements;
-	},
-	readFiles: function() {
-		this.elements = this.fs.readdirSync(this.directoryPath);
-		return this.elements;
 	}
 }
 
 fileLottery.generateRandom = function( min, max ) {
 		return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+fileLottery.readFiles = function(directoryPath) {
+		var fs = require("fs");
+	    return fs.readdirSync(directoryPath);
 }
 
 module.exports.fileLottery = fileLottery;
