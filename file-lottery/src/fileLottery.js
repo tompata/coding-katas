@@ -1,6 +1,7 @@
+
 var fileLottery = function( directoryPath ) {
-	this.elements = [ "file1" , "file2"];
 	this.index = -1;
+	this.elements = fileLottery.readFiles(directoryPath);
 }
 
 fileLottery.prototype = {
@@ -20,7 +21,12 @@ fileLottery.prototype = {
 }
 
 fileLottery.generateRandom = function( min, max ) {
-		return Math.floor(Math.random()*(max-min+1)+min);
+	return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+fileLottery.readFiles = function(directoryPath) {
+	var fs = require("fs");
+    return fs.readdirSync(directoryPath);
 }
 
 module.exports.fileLottery = fileLottery;
