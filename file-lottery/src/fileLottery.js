@@ -1,32 +1,33 @@
 
-var fileLottery = function( directoryPath ) {
-	this.index = -1;
-	this.elements = fileLottery.readFiles(directoryPath);
+var fs = require('fs');
+
+var FileLottery = function( directoryPath ) {
+    this.index = 0;
+    this.files = [''];
+    var stats = fs.statSync( directoryPath );
+    if ( stats.isFile() ) {
+        this.files = [ directoryPath ]; // TODO: basename
+    }
+    else if ( stats.isDirectory() ) {
+        this.files = fs.readdirSync(directoryPath);
+        this.files = FileLottery.shuffle( this.files );
+    }
 }
 
-fileLottery.prototype = {
-	next: function() {
-		this.index++;
-		return this.elements[this.index];
-	},
-	shuffle: function() {
-		var shuffled = [];
-		for (var i=0; i <= this.elements.length; i++) {
-			var randomIndex = fileLottery.generateRandom(0,this.elements.length-1);
-			shuffled[i] = this.elements.splice(randomIndex,1)[0];
-		}
-		this.elements = shuffled;
-		return this.elements;
-	}
+FileLottery.prototype = {
+
+    next: function() {
+        if (this.index < this.files.length) {
+            return this.files[this.index++];
+        }
+        else { return ''; }
+    }
+
 }
 
-fileLottery.generateRandom = function( min, max ) {
-	return Math.floor(Math.random()*(max-min+1)+min);
-}
+FileLottery.shuffle = function( list ) {
+    return list;
+};
 
-fileLottery.readFiles = function(directoryPath) {
-	var fs = require("fs");
-    return fs.readdirSync(directoryPath);
-}
-
-module.exports.fileLottery = fileLottery;
+module.exports.FileLottery = FileLottery;
+module.exports.FileLotteryFs = fs;
